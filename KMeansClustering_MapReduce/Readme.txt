@@ -1,4 +1,4 @@
-Input file is just filled with delimited ponits.
+Input file is just filled with delimited points.
 
 Initially, the output folder needs to be created and must be filled with a file which contains the initial cluster centers which are mostly zero.
 
