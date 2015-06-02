@@ -16,8 +16,8 @@ public class Driver {
 		FileSystem hdfs=FileSystem.get(conf);
 		//args[0] is the path to the file which has features of the input waiting to be classified.
 		BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(args[0]))));
-		//args[1] is the path to the input file which will be used for training.
-		BufferedReader br1 = new BufferedReader(new InputStreamReader(hdfs.open(new Path(args[1]))));
+		//args[2] is the path to the input file which will be used for training.
+		BufferedReader br1 = new BufferedReader(new InputStreamReader(hdfs.open(new Path(args[2]))));
 		while(br1.readLine()!=null){
 			String[] s=br1.readLine().toString().split("\\ ");
 			num_features=s.length-1;
@@ -35,11 +35,11 @@ public class Driver {
 		for(int i=0;i<feat.length;i++){
 			conf.setFloat("feat"+i, feat[i]);
 		}
-		//args[2] is the name of the entity to be classified.
-		conf.set("name",args[2]);
+		//args[1] is the name of the entity to be classified.
+		conf.set("name",args[1]);
 		Job job = new Job(conf,"KNN Classification MapReduce");
 		job.setJarByClass(Driver.class);
-		FileInputFormat.setInputPaths(job, new Path(args[1]));
+		FileInputFormat.setInputPaths(job, new Path(args[2]));
 		//args[3] is the path to the output file.
 		FileOutputFormat.setOutputPath(job, new Path(args[3]));
 		job.setMapperClass(Map.class);
