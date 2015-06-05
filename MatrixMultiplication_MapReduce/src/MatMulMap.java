@@ -10,8 +10,8 @@ Mapper<LongWritable, Text, Text, Text> {
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		int m = Integer.parseInt(context.getConfiguration().get("m"));
-		int p = Integer.parseInt(context.getConfiguration().get("p"));
 		int n = Integer.parseInt(context.getConfiguration().get("n"));
+		int p = Integer.parseInt(context.getConfiguration().get("p"));
 		Text Key = new Text();
 		Text Value = new Text();
 		String line = value.toString();
