@@ -8,7 +8,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class KMeansCentroidCalculationMap extends Mapper<LongWritable, Text, Text, Text>{
 	public static HashMap<Integer,Float> map=new HashMap<Integer,Float>();
-	public static Double minkey=0;
+	public static Double minkey=(double) 0;
 	public static Double minvalue=Double.POSITIVE_INFINITY;
 	public static float euc_dist(Float[] a, Float[] b,int num){
 		float distance=0;
