@@ -45,7 +45,7 @@ public class KMeansCentroidCalculationMap extends Mapper<LongWritable, Text, Tex
 				}
 			}
 			map.clear();
-			minvalue=10000f;
+			minvalue=Double.POSITIVE_INFINITY;
 			context.write(new Text(centers.get(minkey)+","+centers.get(minkey+1)), new Text(xy_points[0]+","+xy_points[1]));
 		}
 	}
