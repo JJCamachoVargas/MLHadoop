@@ -6,8 +6,14 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
-	int num=0;
-	ArrayList<Float> theta_i=new ArrayList<Float>();
+	public static int num=0, count=0, number_inputs=0;
+	public static float alpha=0.0f;
+	public static ArrayList<Float> theta_i=new ArrayList<Float>();
+	@Override
+	public void setup(Context context) throws IOException, InterruptedException{
+		alpha=context.getConfiguration().getFloat("alpha"),
+		number_inputs=context.getConfiguration().getInt("number_inputs");
+	}
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		float alpha=Float.parseFloat(context.getConfiguration().get("alpha"));
