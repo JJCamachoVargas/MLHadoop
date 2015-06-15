@@ -35,6 +35,7 @@ public class Driver {
 		for(int i=0;i<feat.length;i++){
 			conf.setFloat("feat"+i, feat[i]);
 		}
+		conf.setInt("num_features",num_features);
 		//args[1] is the name of the entity to be classified.
 		conf.set("name",args[1]);
 		Job job = new Job(conf,"KNN Classification MapReduce");
