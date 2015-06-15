@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class Map extends Mapper<LongWritable, Text, Text, Text> {
 	public static long byteoffset=0;
+	public static Float[] feat=null;
 	public static String species=null;
 	public static ArrayList<String> dists=new ArrayList<String>();
 	public static float min_dist=0;
@@ -24,16 +25,15 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
 	}
 	@Override
 	public void setup(Context context) throws IOException, InterruptedException{
-		num_features=Integer.parseInt(context.getConfiguration().get("num_features"));
+		num_features=(context.getConfiguration().getInt("num_features"));
+		feat=new Float[num_features];
+		for(int i=0;i<num_features;i++){
+			feat[i]=(context.getConfiguration().getFloat("feat"+i));
+		}
 	}
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		String[] characteristics=value.toString().split("\\ ");
-		int num_features=characteristics.length-1;
-		Float[] feat=new Float[num_features];
 		Float[] test=new Float[num_features];
-		for(int i=0;i<num_features;i++){
-			feat[i]=Float.parseFloat(context.getConfiguration().get("feat"+i));
-		}
 		for(int i=0;i<num_features;i++){
 			test[i]=Float.parseFloat(characteristics[i]);
 		}
