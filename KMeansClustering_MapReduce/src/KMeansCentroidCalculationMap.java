@@ -9,6 +9,8 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class KMeansCentroidCalculationMap extends Mapper<LongWritable, Text, Text, Text>{
 	public static HashMap<Integer,Float> map=new HashMap<Integer,Float>();
 	public static Double minkey=(double) 0;
+	public static int noc=0, dimension=0;
+	public static ArrayList<Float> centers=new ArrayList<Float>();
 	public static Double minvalue=Double.POSITIVE_INFINITY;
 	public static float euc_dist(Float[] a, Float[] b,int num){
 		float distance=0;
@@ -19,13 +21,15 @@ public class KMeansCentroidCalculationMap extends Mapper<LongWritable, Text, Tex
 		distance=(float) Math.sqrt(val);
 		return distance;
 	}
-	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException{
-		ArrayList<Float> centers=new ArrayList<Float>();
-		int noc=Integer.parseInt(context.getConfiguration().get("noc"));
-		int dimension=Integer.parseInt(context.getConfiguration().get("dimension"));
+	@Override
+	public void setup(Context context) {
+		noc=Integer.parseInt(context.getConfiguration().get("noc"));
+		dimension=Integer.parseInt(context.getConfiguration().get("dimension"));
 		for(int i=0;i<noc*2;i++){
 			centers.add(Float.parseFloat(context.getConfiguration().get("c"+i)));
 		}
+	}
+	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException{
 		String[] points = value.toString().split("\\|");
 		for(int i=0;i<points.length;i++){
 			String[] str_point=points[i].split("\\,");
