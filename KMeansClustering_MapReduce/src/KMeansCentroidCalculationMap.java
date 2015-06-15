@@ -22,7 +22,7 @@ public class KMeansCentroidCalculationMap extends Mapper<LongWritable, Text, Tex
 		return distance;
 	}
 	@Override
-	public void setup(Context context) {
+	public void setup(Context context) throws IOException, InterruptedException{
 		noc=Integer.parseInt(context.getConfiguration().get("noc"));
 		dimension=Integer.parseInt(context.getConfiguration().get("dimension"));
 		for(int i=0;i<noc*2;i++){
