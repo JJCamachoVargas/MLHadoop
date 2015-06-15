@@ -14,14 +14,14 @@ public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 		alpha=context.getConfiguration().getFloat("alpha"),
 		number_inputs=context.getConfiguration().getInt("number_inputs");
 	}
-	public void map(LongWritable key, Text value, Context context)
-			throws IOException, InterruptedException {
-		float alpha=Float.parseFloat(context.getConfiguration().get("alpha"));
-		int number_inputs=Integer.parseInt(context.getConfiguration().get("number_inputs"));
+	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+		++count;
 		float h_theta=0;
 		String[] tok=value.toString().split("\\,");
-		for(int i=0;i<tok.length;i++){
+		if(cpount==1){
+			for(int i=0;i<tok.length;i++){
 			theta_i.add(Float.parseFloat(context.getConfiguration().get("theta".concat(String.valueOf(i)))));
+			}
 		}
 		Float[] Xi=new Float[tok.length];
 		for(int i=0;i<Xi.length;i++){
@@ -48,6 +48,6 @@ public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 	public void cleanup(Context context) throws IOException, InterruptedException{
 		for(int i=0;i<num;i++){ // Don't use theta_i.size() as it doesn't work in Hadoop quite well
 		context.write(new Text("theta"+i), new FloatWritable(theta_i.get(i)));
-	}
+		}
 	}
 }
