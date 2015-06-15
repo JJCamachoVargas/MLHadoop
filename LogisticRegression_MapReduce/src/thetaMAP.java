@@ -21,7 +21,7 @@ public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 		String[] tok=value.toString().split("\\,");
 		if(count==1){
 			for(int i=0;i<tok.length;i++){
-				theta_i.add(Float.parseFloat(context.getConfiguration().get("theta".concat(String.valueOf(i)))));
+				theta_i.add(context.getConfiguration().getFloat("theta".concat(String.valueOf(i))));
 			}
 			Xi=new Float[tok.length];
 		}
