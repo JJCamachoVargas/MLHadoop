@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -20,7 +21,7 @@ public class Driver {
 		number_inputs=Integer.parseInt(args[0]);
 		//args[1] is the number of features each input has.
 		num_features=Integer.parseInt(args[1]);
-		++num_features;
+		num_features++;
 		//args[2] is the value of alpha that you want to use.
 		alpha=Float.parseFloat(args[2]);
 		Configuration conf=new Configuration();
@@ -41,14 +42,14 @@ public class Driver {
 				BufferedReader br1 = new BufferedReader(new InputStreamReader(hdfs.open(new Path(args[5]))));
 				String line1=null;
 				while((line1=br1.readLine())!=null){
-					String[] theta_line=line1.toString().split("\\\t");
+					String[] theta_line=line1.toString().split("\t");
 					theta[iter]=Float.parseFloat(theta_line[1]);
 					iter++;
 				}
 				br1.close();
 			}
-			if(hdfs.exists(new Path(args[5]))){
-				hdfs.delete(new Path(args[5]),true);
+			if(hdfs.exists(new Path("/home/punit/Desktop/theta_out"))){
+				hdfs.delete(new Path("/home/punit/Desktop/theta_out"),true);
 			}
 			//alpha value initialisation
 			conf.setFloat("alpha", alpha);
@@ -62,7 +63,7 @@ public class Driver {
 			job.setJarByClass(Driver.class);
 			//args[4] is the input path.
 			FileInputFormat.setInputPaths(job, new Path(args[4]));
-			FileOutputFormat.setOutputPath(job, new Path(args[5]));
+			FileOutputFormat.setOutputPath(job, new Path(args[5]));;
 			job.setMapperClass(thetaMAP.class);
 			job.setReducerClass(thetaREDUCE.class);
 			job.setOutputKeyClass(Text.class);

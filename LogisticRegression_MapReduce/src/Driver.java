@@ -21,7 +21,7 @@ public class Driver {
 		number_inputs=Integer.parseInt(args[0]);
 		//args[1] is the number of features each input has.
 		num_features=Integer.parseInt(args[1]);
-		num_features++;
+		++num_features;
 		//args[2] is the value of alpha that you want to use.
 		alpha=Float.parseFloat(args[2]);
 		Configuration conf=new Configuration();
