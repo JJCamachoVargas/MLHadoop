@@ -8,11 +8,11 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class Map extends Mapper<LongWritable, Text, Text, Text> {
-	long byteoffset=0;
-	String species=null;
-	ArrayList<String> dists=new ArrayList<String>();
-	float min_dist=0;
-	public float euc_dist(Float[] feat, Float[] test,int num){
+	public static long byteoffset=0;
+	public static String species=null;
+	public static ArrayList<String> dists=new ArrayList<String>();
+	public static float min_dist=0;
+	public static float euc_dist(Float[] feat, Float[] test,int num){
 		float distance=0;
 		float val=0;
 		for(int i=0;i<num;i++){
@@ -29,7 +29,6 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
 		for(int i=0;i<num_features;i++){
 			feat[i]=Float.parseFloat(context.getConfiguration().get("feat"+i));
 		}
-
 		for(int i=0;i<num_features;i++){
 			test[i]=Float.parseFloat(characteristics[i]);
 		}
