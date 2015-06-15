@@ -8,6 +8,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 	public static int num=0, count=0, number_inputs=0;
 	public static float alpha=0.0f;
+	public static Float[] Xi=null;
 	public static ArrayList<Float> theta_i=new ArrayList<Float>();
 	@Override
 	public void setup(Context context) throws IOException, InterruptedException{
@@ -18,12 +19,12 @@ public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 		++count;
 		float h_theta=0;
 		String[] tok=value.toString().split("\\,");
-		if(cpount==1){
+		if(count==1){
 			for(int i=0;i<tok.length;i++){
 			theta_i.add(Float.parseFloat(context.getConfiguration().get("theta".concat(String.valueOf(i)))));
 			}
+			Xi=new Float[tok.length];
 		}
-		Float[] Xi=new Float[tok.length];
 		for(int i=0;i<Xi.length;i++){
 			if(i==0){
 				Xi[0]=(float) 1;
