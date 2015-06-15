@@ -26,7 +26,7 @@ public class KMeansCentroidCalculationMap extends Mapper<LongWritable, Text, Tex
 		noc=Integer.parseInt(context.getConfiguration().get("noc"));
 		dimension=Integer.parseInt(context.getConfiguration().get("dimension"));
 		for(int i=0;i<noc*2;i++){
-			centers.add(Float.parseFloat(context.getConfiguration().get("c"+i)));
+			centers.add(context.getConfiguration().getFloat("c"+i));
 		}
 	}
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException{
