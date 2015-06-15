@@ -12,6 +12,7 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
 	public static String species=null;
 	public static ArrayList<String> dists=new ArrayList<String>();
 	public static float min_dist=0;
+	public static int num_features=0;
 	public static float euc_dist(Float[] feat, Float[] test,int num){
 		float distance=0;
 		float val=0;
@@ -20,6 +21,10 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
 		}
 		distance=(float) Math.sqrt(val);
 		return distance;
+	}
+	@Override
+	public void setup(Context context) throws IOException, InterruptedException{
+		num_features=Integer.parseInt(context.getConfiguration().get("num_features"));
 	}
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		String[] characteristics=value.toString().split("\\ ");
