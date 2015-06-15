@@ -4,14 +4,15 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 
-public class MatMulMap extends
-Mapper<LongWritable, Text, Text, Text> {
-
-	public void map(LongWritable key, Text value, Context context)
-			throws IOException, InterruptedException {
-		int m = Integer.parseInt(context.getConfiguration().get("m"));
-		int n = Integer.parseInt(context.getConfiguration().get("n"));
-		int p = Integer.parseInt(context.getConfiguration().get("p"));
+public class MatMulMap extends Mapper<LongWritable, Text, Text, Text> {
+	public static int m=0,n=0,p=0;
+	@Override
+	public void setup(Context context) throws IOException, InterruptedException{
+		m = Integer.parseInt(context.getConfiguration().get("m"));
+		n = Integer.parseInt(context.getConfiguration().get("n"));
+		p = Integer.parseInt(context.getConfiguration().get("p"));
+	}
+	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		Text Key = new Text();
 		Text Value = new Text();
 		String line = value.toString();
