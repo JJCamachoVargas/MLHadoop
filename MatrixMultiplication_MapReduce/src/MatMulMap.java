@@ -21,8 +21,8 @@ public class MatMulMap extends Mapper<LongWritable, Text, Text, Text> {
 			for(int x=0;x<p;x++){
 				String s="";
 				Key.set(val[val.length-1]+","+x);
-				for(int i=0;i<=n;i++){
-					if(i<n){
+				for(int i=0;i<val.length-1;i++){
+					if(i<val.length-2){
 						s=s.concat(val[i]+",");
 					}
 					else{
@@ -37,8 +37,8 @@ public class MatMulMap extends Mapper<LongWritable, Text, Text, Text> {
 			for(int y=0;y<m;y++){
 				String s="";
 				Key.set(y+","+val[val.length-1]);
-				for(int i=0;i<=n;i++){
-					if(i<n){
+				for(int i=0;i<val.length-1;i++){
+					if(i<val.length-2){
 						s=s.concat(val[i]+",");
 					}
 					else{
