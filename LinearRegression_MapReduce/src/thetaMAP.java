@@ -6,7 +6,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
-	public static int num=0, count=0, number_inputs=0;
+	public static int count=0, number_inputs=0;
 	public static float alpha=0.0f;
 	public static Float[] Xi=null;
 	public static ArrayList<Float> theta_i=new ArrayList<Float>();
@@ -43,11 +43,10 @@ public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 			theta_i.remove(i);
 			theta_i.add(i,(float) (temp+(alpha/number_inputs)*(Yi-h_theta)*(Xi[i])));
 		}
-		num=Xi.length;
 	}
 	@Override
 	public void cleanup(Context context) throws IOException, InterruptedException{
-		for(int i=0;i<num;i++){ // Don't use theta_i.size() as it doesn't work in Hadoop quite well
+		for(int i=0;i<theta_i.size();i++){
 		context.write(new Text("theta"+i), new FloatWritable(theta_i.get(i)));
 		}
 	}

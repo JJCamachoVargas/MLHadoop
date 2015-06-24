@@ -17,7 +17,7 @@ public class MatMulMap extends Mapper<LongWritable, Text, Text, Text> {
 		Text Value = new Text();
 		String line = value.toString();
 		String[] val = line.split("\\,");
-		if(val[0].contains("A")){
+		if(val[0].contentEquals("A")){
 			for(int x=0;x<p;x++){
 				String s="";
 				Key.set(val[val.length-1]+","+x);
