@@ -12,8 +12,8 @@ public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 	public static ArrayList<Float> theta_i=new ArrayList<Float>();
 	@Override
 	public void setup(Context context) throws IOException, InterruptedException{
-		alpha=context.getConfiguration().getFloat("alpha"),
-		number_inputs=context.getConfiguration().getInt("number_inputs");
+		alpha=context.getConfiguration().getFloat("alpha",0),
+		number_inputs=context.getConfiguration().getInt("number_inputs",0);
 	}
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		++count;
@@ -21,7 +21,7 @@ public class thetaMAP extends Mapper<LongWritable, Text, Text, FloatWritable> {
 		String[] tok=value.toString().split("\\,");
 		if(count==1){
 			for(int i=0;i<tok.length;i++){
-				theta_i.add(context.getConfiguration().getFloat("theta".concat(String.valueOf(i))));
+				theta_i.add(context.getConfiguration().getFloat("theta".concat(String.valueOf(i)),0));
 			}
 			Xi=new Float[tok.length];
 		}
