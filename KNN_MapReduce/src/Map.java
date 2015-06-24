@@ -25,10 +25,10 @@ public class Map extends Mapper<LongWritable, Text, Text, Text> {
 	}
 	@Override
 	public void setup(Context context) throws IOException, InterruptedException{
-		num_features=(context.getConfiguration().getInt("num_features"));
+		num_features=(context.getConfiguration().getInt("num_features",1));
 		feat=new Float[num_features];
 		for(int i=0;i<num_features;i++){
-			feat[i]=(context.getConfiguration().getFloat("feat"+i));
+			feat[i]=(context.getConfiguration().getFloat("feat"+i, 0));
 		}
 	}
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
