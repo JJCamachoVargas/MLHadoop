@@ -47,6 +47,7 @@ public class KMeansCentroidCalculationDriver_ClassificationDriver{
 		if(hdfs.exists(new Path(args[3]))){
 			hdfs.delete(new Path(args[3]),true);
 		}
+		hdfs.close();
 		for(int i=0;i<(Integer.parseInt(num_centers)*2);i++){
 			conf.setFloat("c".concat(String.valueOf(i)) , centers.get(i));
 		}
@@ -87,6 +88,7 @@ public class KMeansCentroidCalculationDriver_ClassificationDriver{
 			centers_new.add(Float.parseFloat(centroids_new[0]));
 			centers_new.add(Float.parseFloat(centroids_new[1]));
 		}
+		br_med.close();
 		for(int i=1;i<=Integer.parseInt(num_centers);i++){
 			if(iter_med==i){
 				for(int j=0;j<((Integer.parseInt(num_centers)-iter_med)*2);j++){
@@ -98,6 +100,7 @@ public class KMeansCentroidCalculationDriver_ClassificationDriver{
 		if(hdfs_med.exists(new Path(args[3]))){
 			hdfs_med.delete(new Path(args[3]),true);
 		}
+		hdfs_med.close();
 		ArrayList<Float> ond = new ArrayList<Float>();
 		for(int i=0;i<Integer.parseInt(num_centers)*2;i+=2){
 			ond.add(Math.abs((centers_old.get(i)-centers_new.get(i))+(centers_old.get(i+1)-centers_new.get(i+1))));
