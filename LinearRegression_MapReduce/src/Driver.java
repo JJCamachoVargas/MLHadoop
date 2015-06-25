@@ -50,6 +50,7 @@ public class Driver {
 			if(hdfs.exists(new Path(args[5]))){
 				hdfs.delete(new Path(args[5]),true);
 			}
+			hdfs.close();
 			//alpha value initialisation
 			conf.setFloat("alpha", alpha);
 			//Theta Value Initialisation
