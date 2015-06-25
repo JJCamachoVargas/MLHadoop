@@ -32,6 +32,7 @@ public class Driver {
 			iter++;
 		}
 		br.close();
+		hdfs.close();
 		for(int i=0;i<feat.length;i++){
 			conf.setFloat("feat"+i, feat[i]);
 		}
