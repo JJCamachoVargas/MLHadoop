@@ -51,6 +51,7 @@ public class Driver {
 			if(hdfs.exists(new Path("/home/punit/Desktop/theta_out"))){
 				hdfs.delete(new Path("/home/punit/Desktop/theta_out"),true);
 			}
+			hdfs.close();
 			//alpha value initialisation
 			conf.setFloat("alpha", alpha);
 			//Theta Value Initialisation
