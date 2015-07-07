@@ -83,6 +83,8 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 		for(Entry<String, Integer> entry: co_oc_mat.entrySet()){
 			String check_val=entry.getKey().split("\\,")[0];
 			if(!prev.contentEquals(check_val)){
+			// If code enters this block, it will mean that the row has changed
+			// We have to transmit the aggregated values of the previous row and re-initialise the values.
 				if(row_num==-1){
 					prev=check_val;
 					//++row_num;
@@ -99,8 +101,13 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 					++row_num;
 				}
 			}
+			// Iterating through one row and fetching its values.
+			// i.e. The row indices will be equal i.e. prev and check_val are equal
+			// Joining them together in a string.
 			value=value+","+entry.getValue();
 		}
+		// We have to transmit the aggregated values of the last row
+		// since the matrix is fully iterated over and it won't enter the block where values are transmitted.
 		for(int i=0;i<unique_users.size();i++){
 			String key=row_num+","+unique_users.get(i);
 			//String key=row_num+","+i;
@@ -111,6 +118,8 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 		for(Entry<String, Float> entry: sorted_user_scoring_mat.entrySet()){
 			String check_val=entry.getKey().split("\\,")[0];
 			if(!prev2.contentEquals(check_val)){
+				// If code enters this block, it will mean that the row has changed
+				// We have to transmit the aggregated values of the previous row and re-initialise the values.
 				if(col_num==-1){
 					prev2=check_val;
 					//++col_num;
@@ -127,9 +136,15 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 					++col_num;
 				}
 			}
+			// Iterating through one row and fetching its values.
+			// i.e. The row indices will be equal i.e. prev2 and check_val are equal
+			// Joining them together in a string.
 			value2=value2+","+entry.getValue();
+			// For an extra check at the RecReduce
 			context.write(new Text(identifier+entry.getKey().split("\\,")[1]+","+entry.getKey().split("\\,")[0]), new Text(String.valueOf(entry.getValue())));
 		}
+		// We have to transmit the aggregated values of the last row
+		// since the matrix is fully iterated over and it won't enter the block where values are transmitted.
 		for(int i=0;i<unique_items.size();i++){
 			String key=unique_items.get(i)+","+col_num;
 			//String key=i+","+col_num;
