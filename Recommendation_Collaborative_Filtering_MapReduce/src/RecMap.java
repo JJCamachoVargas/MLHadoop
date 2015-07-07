@@ -102,8 +102,8 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 				}
 			}
 			// Iterating through one row and fetching its values.
-			// i.e. The row indices will be equal i.e. prev and check_val are equal
 			// Joining them together in a string.
+			// i.e. The row indices will be equal and we are currently traversing through the same row i.e. prev and check_val are equal
 			value=value+","+entry.getValue();
 		}
 		// We have to transmit the aggregated values of the last row
@@ -137,8 +137,8 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 				}
 			}
 			// Iterating through one row and fetching its values.
-			// i.e. The row indices will be equal i.e. prev2 and check_val are equal
 			// Joining them together in a string.
+			// i.e. The row indices will be equal and we are currently traversing through the same row i.e. prev2 and check_val are equal
 			value2=value2+","+entry.getValue();
 			// For an extra check at the RecReduce
 			context.write(new Text(identifier+entry.getKey().split("\\,")[1]+","+entry.getKey().split("\\,")[0]), new Text(String.valueOf(entry.getValue())));
