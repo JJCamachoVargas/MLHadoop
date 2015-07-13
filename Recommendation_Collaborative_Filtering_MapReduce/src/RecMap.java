@@ -29,7 +29,7 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 	@Override
 	public void setup(Context context){
 		delimiter=context.getConfiguration().get("delimiter");
-		identifier=context.getTaskAttemptID().getTaskID().getId()+delimiter;
+		identifier=context.getInputSplit()+delimiter;
 	}
 	@Override
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -50,7 +50,7 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 		if (!hdfs.exists(outFile)){
 			OutputStream out = hdfs.create(outFile);
 			BufferedWriter br = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-			br.write(context.getTaskAttemptID().getTaskID().getId()+delimiter+String.valueOf(unique_items.size())+"\n");
+			br.write(identifier+unique_items.size()+"\n");
 			br.close();
 			hdfs.close();
 		}
@@ -64,7 +64,7 @@ public class RecMap extends Mapper<LongWritable, Text, Text, Text> {
 			hdfs.delete(outFile, true);
 			OutputStream out = hdfs.create(outFile);
 			BufferedWriter br2 = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-			br2.write(line1+context.getTaskAttemptID().getTaskID().getId()+delimiter+String.valueOf(unique_items.size())+"\n");
+			br2.write(line1+identifier+unique_items.size()+"\n");
 			br2.close();
 			hdfs.close();
 		}
