@@ -15,22 +15,24 @@ Reducer<Text, Text, Text, Text> {
 	@Override
 	public void setup(Context context) throws IOException, InterruptedException{
 		delimiter=context.getConfiguration().get("delimiter");
-		FileSystem hdfs= FileSystem.get(context.getConfiguration());
-		BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(context.getConfiguration().get("outFile")))));
-		String line=null;
-		while((line=br.readLine())!=null){
-			String[] parts=line.replaceAll("\n", "").split(delimiter);
-			int task_id=context.getTaskAttemptID().getTaskID().getId();
-			if(task_id==Integer.parseInt(parts[0])){
-				n=Integer.parseInt(parts[1]);
-				break;
-			}
-		}
-		br.close();
-		hdfs.close();
+		n=0;
 	}
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+		if(n==0){
+			FileSystem hdfs= FileSystem.get(context.getConfiguration());
+			BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(context.getConfiguration().get("outFile")))));
+			String line=null;
+			while((line=br.readLine())!=null){
+				String[] parts=line.replaceAll("\n", "").split(delimiter);
+				if((key.toString().split(delimiter)[0]).contentEquals(parts[0])){
+					n=Integer.parseInt(parts[1]);
+					break;
+				}
+			}
+			br.close();
+			hdfs.close();
+		}
 		String[] value=null;
 		double pref=0;
 		HashMap<Integer, Float> hashA = new HashMap<Integer, Float>();
