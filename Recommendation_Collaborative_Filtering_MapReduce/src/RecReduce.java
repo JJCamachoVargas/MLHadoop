@@ -15,7 +15,6 @@ Reducer<Text, Text, Text, Text> {
 	@Override
 	public void setup(Context context) throws IOException, InterruptedException{
 		delimiter=context.getConfiguration().get("delimiter");
-		n=0;
 	}
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
@@ -63,5 +62,6 @@ Reducer<Text, Text, Text, Text> {
 		if(pref==0.0){
 			context.write(null, new Text(key.toString() + ";" + Float.toString(result)));
 		}
+		n=0;
 	}
 }
