@@ -6,4 +6,4 @@ Language used: Java
 IDE used: Eclipse IDE with HDT (Hadoop Development Tools) plugin installed.
 Hadoop version used: 1.2.1
 
-Please STAR if you like tihs :P
+Please STAR if you like this :P
