@@ -1,0 +1,10 @@
+Urgent,Yes_Party,Yes_Lazy,Party
+Urgent,No_Party,Yes_Lazy,Study
+Near,Yes_Party,Yes_Lazy,Party
+None,Yes_Party,No_Lazy,Party
+None,No_Party,Yes_Lazy,Pub
+None,Yes_Party,No_Lazy,Party
+Near,No_Party,No_Lazy,Study
+Near,No_Party,Yes_Lazy,TV
+Near,Yes_Party,Yes_Lazy,Party
+Urgent,No_Party,No_Lazy,Study
