@@ -27,14 +27,14 @@ public class NBCMap extends Mapper<LongWritable, Text, IntWritable, Text>{
 				else
 					outcome_count.put(input[j], (double) 1);
 			}
-			if(j<input.length-1){
+			else{
 				if(input[j].contentEquals(test_input[j])){
-					if(!inputs.containsKey(input[j]))
-						inputs.put(input[j], 0);
-					if(features_count.containsKey(input[j]+"|"+input[input.length-1]))
-						features_count.put(input[j]+"|"+input[input.length-1], features_count.get(input[j]+"|"+input[input.length-1])+1);
+					if(!inputs.containsKey(j+","+input[j]))
+						inputs.put(j+","+input[j], 0);
+					if(features_count.containsKey(j+","+input[j]+"|"+input[input.length-1]))
+						features_count.put(j+","+input[j]+"|"+input[input.length-1], features_count.get(j+","+input[j]+"|"+input[input.length-1])+1);
 					else
-						features_count.put(input[j]+"|"+input[input.length-1], (double) 1);
+						features_count.put(j+","+input[j]+"|"+input[input.length-1], (double) 1);
 				}
 			}
 		}
