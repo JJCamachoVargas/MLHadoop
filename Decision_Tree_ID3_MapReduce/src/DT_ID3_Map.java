@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -20,11 +19,12 @@ public class DT_ID3_Map extends Mapper<LongWritable, Text, Text, Text>{
 		LinkedHashMap<String,String> g = new LinkedHashMap<String,String>();
 		LinkedHashMap<String,String> t=BuildTree.build(g,input, count);
 		String key="";
+		int c=0;
 		for(Entry<String,String> T:t.entrySet()){
-			key+=T.getKey()+","+T.getValue()+"\n";
+			++c;
+			key=T.getKey()+","+T.getValue();
+			System.out.println("key: "+key+" c: "+c);
+			context.write(new Text(String.valueOf(c)), new Text(key));
 		}
-		if(key.endsWith("\n"))
-			key=key.substring(0,key.length()-1);
-		context.write(new Text("1"), new Text(key));
 	}
 }

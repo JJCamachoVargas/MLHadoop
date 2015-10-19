@@ -15,4 +15,4 @@ Every line starts with an integer which is the node and then the connected nodes
 At every line, outputs are separated by "|". If an output doesn't have a ";" separated value attached to it, then it is a node
 which will be split and its contents are written in the next line.
 
-I use a LinkedHashMap to store the graph. I used the LinkedHashMap to preserve the order of all the insertions in my map.
+I use a LinkedHashMap to store the graph. I used the LinkedhashMap to preserve the order of all the insertions in my map.
