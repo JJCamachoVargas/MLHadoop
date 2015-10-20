@@ -8,16 +8,13 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 
-public class RecReduce extends
-Reducer<Text, Text, Text, Text> {
-	public static String delimiter=null;
-	public static int n=0;
+public class RecReduce extends Reducer<Text, Text, Text, Text>{
 	@Override
-	public void setup(Context context) throws IOException, InterruptedException{
-		delimiter=context.getConfiguration().get("delimiter");
-	}
-	@Override
-	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException{
+		String delimiter=null;
+		if(delimiter==null)
+			delimiter=context.getConfiguration().get("delimiter");
+		int n=0;
 		if(n==0){
 			FileSystem hdfs= FileSystem.get(context.getConfiguration());
 			BufferedReader br = new BufferedReader(new InputStreamReader(hdfs.open(new Path(context.getConfiguration().get("outFile")))));
