@@ -59,6 +59,7 @@ public class RecReduce extends Reducer<Text, Text, Text, Text>{
 		if(pref==0.0){
 			context.write(null, new Text(key.toString() + ";" + Float.toString(result)));
 		}
+		delimiter=null;
 		n=0;
 	}
 }
