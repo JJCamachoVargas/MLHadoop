@@ -4,11 +4,8 @@ import java.util.HashMap;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class MatMulReduce extends
-Reducer<Text, Text, Text, Text> {
-
-	public void reduce(Text key, Iterable<Text> values, Context context)
-			throws IOException, InterruptedException {
+public class MatMulReduce extends Reducer<Text, Text, Text, Text>{
+	public void reduce(Text key, Iterable<Text> values, Context context)throws IOException, InterruptedException{
 		int n=Integer.parseInt(context.getConfiguration().get("n"));
 		String[] value;
 		HashMap<Integer, Float> hashA = new HashMap<Integer, Float>();
