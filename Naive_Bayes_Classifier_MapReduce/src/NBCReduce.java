@@ -6,11 +6,11 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class NBCReduce extends Reducer<IntWritable, Text, IntWritable, Text> {
-	public static Double out_value=Double.NEGATIVE_INFINITY;
-	public static String out_key=null;
-	public static HashMap<String,Integer> final_output=new HashMap<String,Integer>();
-	public void reduce(IntWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+public class NBCReduce extends Reducer<IntWritable, Text, IntWritable, Text>{
+	public void reduce(IntWritable key, Iterable<Text> values, Context context) throws IOException, InterruptedException{
+		Double out_value=Double.NEGATIVE_INFINITY;
+		String out_key=null;
+		HashMap<String,Integer> final_output=new HashMap<String,Integer>();
 		for(Text value:values){
 			if(final_output.containsKey(value.toString()))
 				final_output.put(value.toString(), final_output.get(value.toString())+1);
