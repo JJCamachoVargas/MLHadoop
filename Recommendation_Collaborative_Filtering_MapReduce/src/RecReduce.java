@@ -9,11 +9,13 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 
 public class RecReduce extends Reducer<Text, Text, Text, Text>{
+	String delimiter=null;
+	@Override
+	public void setup(Context context){
+		delimiter=context.getConfiguration().get("delimiter");
+	}
 	@Override
 	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException{
-		String delimiter=null;
-		if(delimiter==null)
-			delimiter=context.getConfiguration().get("delimiter");
 		int n=0;
 		if(n==0){
 			FileSystem hdfs= FileSystem.get(context.getConfiguration());
