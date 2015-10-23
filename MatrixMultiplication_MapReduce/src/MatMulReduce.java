@@ -1,12 +1,15 @@
 import java.io.IOException;
 import java.util.HashMap;
-
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class MatMulReduce extends Reducer<Text, Text, Text, Text>{
+	int n=0;
+	@Override
+	public void setup(Context context){
+		n=Integer.parseInt(context.getConfiguration().get("n"));
+	}
 	public void reduce(Text key, Iterable<Text> values, Context context)throws IOException, InterruptedException{
-		int n=Integer.parseInt(context.getConfiguration().get("n"));
 		String[] value;
 		HashMap<Integer, Float> hashA = new HashMap<Integer, Float>();
 		HashMap<Integer, Float> hashB = new HashMap<Integer, Float>();
