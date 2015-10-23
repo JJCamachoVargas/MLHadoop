@@ -5,10 +5,14 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class Reduce extends Reducer<Text, Text, Text, Text> {
+	String flower_name=null;
+	@Override
+	public void setup(Context context){
+		flower_name=String.valueOf(context.getConfiguration().get("name"));
+	}
 	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException{
 		HashMap<String,Integer> map=new HashMap<String,Integer>();
 		String maxkey=null;int maxvalue=-1;
-		String flower_name=String.valueOf(context.getConfiguration().get("name"));
 		for(Text value:values){
 			if(!map.containsKey(value.toString())){
 				map.put(value.toString(), 1);
