@@ -24,12 +24,14 @@ public class Driver {
 			break;
 		}
 		br1.close();
-		int iter=0;
+		
 		Float[] feat=new Float[num_features];
 		String line=null;
-		while((line=br.readLine())!=null){
-			feat[iter]=Float.parseFloat(line.toString());
-			iter++;
+		if((line=br.readLine())!=null){
+			String sFeat[]=line.toString().split("\\ ");
+			for (int i=0;i<sFeat.length;i++){
+				feat[i]=Float.parseFloat(sFeat[i]);
+			}
 		}
 		br.close();
 		hdfs.close();
